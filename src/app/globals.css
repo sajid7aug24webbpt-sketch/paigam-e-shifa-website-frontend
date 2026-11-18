@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-stone-900 dark:bg-stone-950 dark:text-stone-100; }
+img { max-width: 100%; height: auto; }
+a, button { min-height: 44px; }
+nav a, nav button { min-height: 44px; }
+.prose-custom h1, .prose-custom h2, .prose-custom h3 { @apply font-bold text-emerald-800 dark:text-emerald-300 mt-6 mb-2; }
+.prose-custom h1 { @apply text-3xl; }
+.prose-custom h2 { @apply text-2xl; }
+.prose-custom h3 { @apply text-xl; }
+.prose-custom p { @apply my-3 leading-relaxed; }
+.prose-custom ul { @apply list-disc pl-6 my-3; }
+.prose-custom ol { @apply list-decimal pl-6 my-3; }
+.prose-custom blockquote { @apply border-l-4 border-amber-500 pl-4 italic my-4; }
+.prose-custom a { @apply text-emerald-700 dark:text-emerald-300 underline; }
