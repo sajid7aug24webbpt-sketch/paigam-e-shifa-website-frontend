@@ -10,7 +10,8 @@ export default function YouTubePage() {
       <a href={SITE.youtube} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center rounded-full bg-emerald-800 px-8 font-semibold text-white hover:bg-emerald-700">Visit channel →</a>
       <article className="overflow-hidden rounded-2xl border dark:border-stone-700">
         <a href={`https://www.youtube.com/watch?v=${SITE.topVideoId}`} target="_blank" rel="noreferrer">
-          <Image src={`https://i.ytimg.com/vi/${SITE.topVideoId}/hqdefault.jpg`} alt={SITE.topVideoTitle} width={800} height={450} className="h-auto w-full object-cover" unoptimized />
+          {/* mqdefault is the true 16:9 thumbnail; hqdefault is 4:3 letterboxed. */}
+          <Image src={`https://i.ytimg.com/vi/${SITE.topVideoId}/mqdefault.jpg`} alt={SITE.topVideoTitle} width={800} height={450} className="aspect-video w-full object-cover" unoptimized />
         </a>
         <div className="p-4">
           <h2 className="text-lg font-bold"><a className="hover:text-emerald-700 dark:hover:text-emerald-300" href={`https://www.youtube.com/watch?v=${SITE.topVideoId}`} target="_blank" rel="noreferrer">{SITE.topVideoTitle}</a></h2>

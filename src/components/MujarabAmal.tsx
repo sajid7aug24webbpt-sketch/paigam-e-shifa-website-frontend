@@ -16,13 +16,12 @@ export default function MujarabAmal({ teaser = false }: { teaser?: boolean }) {
       <p className="mt-2 rounded-xl bg-amber-50 p-4 text-sm dark:bg-stone-900">Disclaimer: Ruhani Ilaj is a spiritual practice, not a medical treatment. No cure is guaranteed. If you are unwell, please also seek appropriate medical care.</p>
       <div className="mt-4 grid gap-6 sm:grid-cols-2">
         {POSTERS.map((p) => (
-          <button key={p.src} type="button" onClick={() => open(p)} className="overflow-hidden rounded-2xl border border-amber-600/50 bg-white text-left shadow dark:bg-stone-900" aria-label={`View ${p.title} larger`}>
+          <button key={p.src} type="button" onClick={() => open(p)} className="overflow-hidden rounded-2xl border border-amber-600/50 bg-emerald-950 text-left shadow dark:bg-stone-900" aria-label={`View ${p.title} larger`}>
             <Image src={p.src} alt={p.alt} width={1055} height={1491} className="h-auto w-full object-contain" />
             <span className="block bg-emerald-800 py-2 text-center text-sm font-semibold text-white">Bara dekhein</span>
           </button>
         ))}
       </div>
-      <p className="mt-2 rounded-xl bg-amber-50 p-4 text-sm dark:bg-stone-900">Disclaimer: Ruhani Ilaj is a spiritual practice, not a medical treatment. No cure is guaranteed.</p>
       {teaser ? <p className="mt-3"><Link href="/ruhani-ilaj" className="font-semibold text-emerald-700 underline dark:text-emerald-300">Mujarab Amal section →</Link></p> : null}
       {view}
     </section>

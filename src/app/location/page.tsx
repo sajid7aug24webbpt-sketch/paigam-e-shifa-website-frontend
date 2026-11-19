@@ -21,6 +21,10 @@ export default function Location() {
           <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">Please call to confirm before visiting.</p>
         </article>
       </div>
+      <div className="overflow-hidden rounded-2xl border dark:border-stone-700">
+        <iframe title="Map — Paigam-e-Shifa, Tajpura, Lahore Cantt (Google Maps search result, not an exact pin)" src={SITE.mapsEmbed} className="h-[400px] w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+      </div>
+      <p className="text-sm text-stone-600 dark:text-stone-300">The map shows the Google Maps search result for the clinic address — not an exact pin.</p>
     </div>
   );
 }

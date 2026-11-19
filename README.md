@@ -19,7 +19,7 @@ npm run start                # production, port 3000
 | Variable | Default | Notes |
 |---|---|---|
 | `NEXT_PUBLIC_API_URL` | `http://localhost:5000/api` | Flask backend base URL |
-| `NEXT_PUBLIC_SITE_URL` | `https://paigam-e-shifa.example` | **Placeholder — set the real domain after hosting.** Used by sitemap.xml, robots.txt and Open Graph URLs. |
+| `NEXT_PUBLIC_SITE_URL` | `https://paigam-e-shifa.netlify.app` | Live site URL. Used by sitemap.xml, robots.txt and Open Graph URLs. |
 
 ## How the admin is reached
 

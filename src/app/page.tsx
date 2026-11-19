@@ -28,8 +28,11 @@ export default async function Home() {
             <Link href="/rabta" className="flex min-h-[44px] items-center rounded-full border border-emerald-800 px-6 font-semibold text-emerald-800 dark:text-emerald-300">Rabta karein</Link>
           </div>
         </div>
-        <div className="mx-auto w-full max-w-[420px] overflow-hidden rounded-2xl border border-amber-600/50 shadow-lg">
-          <Image src="/posters/main-poster.webp" alt="Paigam-e-Shifa main poster" width={702} height={1054} className="h-auto w-full object-contain" priority />
+        {/* The poster file is 702x1600 with black bands baked in above/below the
+            real 702x1054 poster; a 2:3 crop removes exactly the bands, no poster
+            content is cropped. Dark frame so there is no white flash on load. */}
+        <div className="mx-auto w-full max-w-[420px] overflow-hidden rounded-2xl border border-amber-600/50 bg-emerald-950 shadow-lg">
+          <Image src="/posters/main-poster.webp" alt="Paigam-e-Shifa main poster" width={702} height={1054} className="aspect-[702/1054] w-full object-cover" priority />
         </div>
       </section>
 
@@ -45,9 +48,9 @@ export default async function Home() {
       <section className="rounded-2xl border p-6 dark:border-stone-700">
         <h2 className="text-2xl font-bold text-emerald-800 dark:text-emerald-300">Pehli Dafa Aaye Hain? Start Here</h2>
         <ol className="mt-4 grid gap-4 md:grid-cols-3">
-          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">1. Rabta karein</p><p className="mt-1 text-sm">Call {SITE.phoneDisplay} ya WhatsApp par message bhejein.</p></li>
-          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">2. Clinic aayein</p><p className="mt-1 text-sm">{SITE.addressShort}. Hours: {SITE.hours}.</p></li>
-          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">3. Ruhani Ilaj</p><p className="mt-1 text-sm">Hakeem Hafiz Muhammad Tahir se Ruhani Ilaj (Ayat-ul-Kursi se) ke baare mein maloom karein.</p></li>
+          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">Rabta karein</p><p className="mt-1 text-sm">Call {SITE.phoneDisplay} ya WhatsApp par message bhejein.</p></li>
+          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">Clinic aayein</p><p className="mt-1 text-sm">{SITE.addressShort}. Hours: {SITE.hours}.</p></li>
+          <li className="rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/50"><p className="text-lg font-bold">Ruhani Ilaj</p><p className="mt-1 text-sm">Hakeem Hafiz Muhammad Tahir se Ruhani Ilaj (Ayat-ul-Kursi se) ke baare mein maloom karein.</p></li>
         </ol>
       </section>
 

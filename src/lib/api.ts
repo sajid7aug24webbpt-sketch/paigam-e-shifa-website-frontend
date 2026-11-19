@@ -79,7 +79,28 @@ export async function fetchPublicPost(slug: string): Promise<Post | null> {
 
 export function resolveImageUrl(p?: Post | null): string | null {
   if (!p?.imageUrl) return null;
-  if (p.imageUrl.startsWith("http")) return p.imageUrl;
-  if (p.imageUrl.startsWith("/")) return `${API_URL.replace(/\/api$/, "")}${p.imageUrl}`;
-  return p.imageUrl;
+  let url = p.imageUrl;
+  // YouTube serves 4:3 letterboxed thumbnails (sd/hqdefault) for 16:9 videos;
+  // rewrite to the true 16:9 mqdefault so cards never show black bars or clip titles.
+  const yt = url.match(/^(https:\/\/i\.ytimg\.com\/vi\/[^/]+\/)(?:sddefault|hqdefault|default)\.jpg$/);
+  if (yt) url = `${yt[1]}mqdefault.jpg`;
+  if (url.startsWith("http")) return url;
+  if (url.startsWith("/")) return `${API_URL.replace(/\/api$/, "")}${url}`;
+  return url;
+}
+
+/** Fallback poster for posts seeded without an image (the live DB has none for
+ *  these slugs — the seed images never copied on PythonAnywhere). Only the
+ *  site's own real posters are used; nothing is invented. */
+const FALLBACK_POSTER = "/posters/main-poster.webp";
+const POSTER_BY_SLUG: Record<string, string> = {
+  "spiritual-remedy-children-evil-eye": "/posters/mujarab-amal-nazar.webp",
+};
+export function fallbackImageForPost(p?: Post | null): string {
+  if (!p) return FALLBACK_POSTER;
+  return POSTER_BY_SLUG[p.slug] || FALLBACK_POSTER;
+}
+/** Image to show for a post: its own image when it has one, else a real site poster. */
+export function postImageUrl(p?: Post | null): string {
+  return resolveImageUrl(p) || fallbackImageForPost(p);
 }

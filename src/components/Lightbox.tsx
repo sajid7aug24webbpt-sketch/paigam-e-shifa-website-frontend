@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export interface LightboxItem { src: string; alt: string; title: string; desc?: string }
+export interface LightboxItem { src: string; alt: string; title: string; desc?: string; cropBands?: boolean }
 
 export function useLightbox() {
   const [item, setItem] = useState<LightboxItem | null>(null);
@@ -25,7 +25,7 @@ export function useLightbox() {
           <button className="rounded border px-3 py-2" onClick={close} aria-label="Close">✕ Close</button>
         </div>
         <div className="overflow-auto">
-          <Image src={item.src} alt={item.alt} width={702} height={1054} style={{ width: `${230 * zoom}px`, maxWidth: "none" }} className="mx-auto h-auto object-contain" unoptimized={item.src.endsWith(".png")} />
+          <Image src={item.src} alt={item.alt} width={702} height={1054} style={{ width: `${230 * zoom}px`, maxWidth: "none" }} className={item.cropBands ? "mx-auto aspect-[702/1054] object-cover" : "mx-auto h-auto object-contain"} unoptimized={item.src.endsWith(".png")} />
         </div>
         <h3 className="mt-3 text-lg font-bold text-emerald-800 dark:text-emerald-300">{item.title}</h3>
         {item.desc ? <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{item.desc}</p> : null}

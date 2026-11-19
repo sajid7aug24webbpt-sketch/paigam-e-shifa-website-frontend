@@ -9,7 +9,7 @@ export default function Footer() {
           <p className="text-xl font-bold">Paigam-e-Shifa</p>
           <p className="font-urdu mt-1 text-lg">{SITE.nameUrdu}</p>
           <p className="mt-2 text-sm text-emerald-100/90">{SITE.tagline}</p>
-          <p className="mt-2 text-sm">{SITE.hakeem} — {SITE.credentials}</p>
+          <p className="mt-2 text-sm">{SITE.hakeem} — <span className="whitespace-nowrap">{SITE.credentials}</span></p>
         </div>
         <div>
           <p className="font-bold text-amber-400">Quick Links</p>

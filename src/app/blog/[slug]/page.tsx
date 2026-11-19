@@ -1,22 +1,36 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import { fetchPublicPost, resolveImageUrl } from "@/lib/api";
+import { fetchPublicPost, postImageUrl } from "@/lib/api";
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await fetchPublicPost(params.slug);
   return { title: post ? `${post.title} | Paigam-e-Shifa` : "Blog | Paigam-e-Shifa", description: post?.textEn?.replace(/^#+\s*/gm, "").slice(0, 160) || "Paigam-e-Shifa blog article." };
 }
+/** Drop leading markdown headings that only repeat the article title / Urdu
+ *  title (the page already renders both once above the body). */
+function stripDuplicateTitleHeadings(text: string, titles: (string | undefined | null)[]): string {
+  const wanted = titles.filter(Boolean).map((t) => t!.trim());
+  const lines = text.split("\n");
+  let i = 0;
+  while (i < lines.length) {
+    const m = lines[i].match(/^#{1,6}\s+(.*\S)\s*$/);
+    if (!m || !wanted.includes(m[1].trim())) break;
+    i++;
+  }
+  return lines.slice(i).join("\n").replace(/^\n+/, "");
+}
 export default async function BlogDetail({ params }: { params: { slug: string } }) {
   const post = await fetchPublicPost(params.slug);
   if (!post) return <div className="py-16 text-center"><h1 className="text-2xl font-bold">Article not found</h1><p className="mt-2 text-stone-600 dark:text-stone-300">This article may not be published yet, or the clinic API is not connected.</p></div>;
-  const img = resolveImageUrl(post);
+  const img = postImageUrl(post);
+  const body = stripDuplicateTitleHeadings(post.textEn || "", [post.title, post.textUr]);
   return (
     <article className="mx-auto max-w-3xl space-y-4 py-8">
       <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Blog{post.postDate ? ` • ${post.postDate}` : ""}</p>
       <h1 className="text-3xl font-extrabold leading-tight text-emerald-900 dark:text-emerald-100">{post.title}</h1>
-      {img ? <Image src={img} alt={post.title} width={800} height={450} className="h-auto w-full rounded-2xl object-contain" unoptimized={img.startsWith("http")} /> : null}
+      <Image src={img} alt={post.title} width={800} height={450} className="h-auto w-full rounded-2xl object-contain" unoptimized={img.startsWith("http")} />
       {post.textUr ? <p className="font-urdu text-xl leading-loose text-stone-700 dark:text-stone-200">{post.textUr}</p> : null}
-      {post.textEn ? <div className="prose-custom"><ReactMarkdown>{post.textEn}</ReactMarkdown></div> : null}
+      {body ? <div className="prose-custom"><ReactMarkdown>{body}</ReactMarkdown></div> : null}
       {post.linkUrl ? <p><a className="font-semibold text-emerald-700 underline dark:text-emerald-300" href={post.linkUrl} target="_blank" rel="noreferrer">Open link →</a></p> : null}
       <p className="rounded-xl bg-amber-50 p-4 text-sm dark:bg-stone-900">Ruhani Ilaj is a spiritual practice, not a medical treatment. No cure is guaranteed.</p>
     </article>

@@ -9,11 +9,11 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
   if (isAdmin) return <>{children}</>;
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="mx-auto w-full max-w-6xl px-4">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4">{children}</main>
       <Footer />
       <BackToTop />
-    </>
+    </div>
   );
 }

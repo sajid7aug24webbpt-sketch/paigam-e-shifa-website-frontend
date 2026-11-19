@@ -1,4 +1,4 @@
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://paigam-e-shifa.example";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://paigam-e-shifa.netlify.app";
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 // Server-side fetch base: inside Docker the browser-facing API URL is not
 // reachable from the frontend container, so server components use the
@@ -36,6 +36,11 @@ export const SITE = {
   mapsDirections: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     "Paigam-e-Shifa, Tajpura, House No. 37, Gali No. 16, Lahore Cantt, District Lahore"
   )}`,
+  // Search-result embed for the Location page (same query as the Maps links;
+  // this is a search result, not an exact pin).
+  mapsEmbed: `https://www.google.com/maps?q=${encodeURIComponent(
+    "Paigam-e-Shifa, Tajpura, House No. 37, Gali No. 16, Lahore Cantt, District Lahore"
+  )}&output=embed`,
 };
 
 export const SERVICES = [
